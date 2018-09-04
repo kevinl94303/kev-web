@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Overlay from './Overlay';
+import * as _ from 'lodash';
 
 const StyledNavbar = styled.div`
     height: 50px;
@@ -54,10 +54,16 @@ class Navbar extends Component{
     }
 }
 
-const StyledFeature = styled.div`
+const FeatureWrapper = styled.div`
     grid-column: span 4;
     height: 30vw;
     overflow: hidden;
+    position: relative;
+`
+
+const StyledFeature = styled.div`
+    width: 100%;
+    height: 100%;
     position: relative;
     cursor: pointer;
     display: flex;
@@ -103,10 +109,11 @@ const FeatureName = styled.div`
 
 class Feature extends Component{
     render() {
+        const {props: {item}} = this;
         return(
             <StyledFeature>
-                <FeatureBackground item={this.props.item}/>
-                <FeatureName>{this.props.item.name}</FeatureName>
+                <FeatureBackground item={featureItems[item]}/>
+                <FeatureName>{featureItems[item].name}</FeatureName>
             </StyledFeature>
         )
     }
@@ -114,10 +121,11 @@ class Feature extends Component{
 
 class VICEFeature extends Component{
     render() {
+        const {props: {item}} = this;
         return(
             <StyledFeature>
-                <VICEFeatureBackground item={this.props.item}/>
-                <FeatureName>{this.props.item.name}</FeatureName>
+                <VICEFeatureBackground item={featureItems[item]}/>
+                <FeatureName>{featureItems[item].name}</FeatureName>
             </StyledFeature>
         )
     }
@@ -169,35 +177,68 @@ const FeaturedTitle = styled.div`
     background: linear-gradient(black, #333);
 `
 
-const FeatureBlurb = styled.div`
+const StyledFeatureBlurb = styled.div`
     grid-column: 1/13;
-    height: 20vw;
+    height: 0;
+    height: ${props => props.isContent ? '20vw' : 0};
     transition: height 1s;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
-    text-shadow: 2px 2px 5px #888888;
     background: linear-gradient(black, #333);
+    & a{
+        color: inherit;
+    }
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    & div{
+        margin: 5%;
+    }
 `
+
+class FeatureBlurb extends Component {
+    render(){
+        let isContent = this.props.currItem && this.props.currItem.blurb ? true : false;
+        return <StyledFeatureBlurb isContent = {isContent}>
+            <div>{this.props.currItem && this.props.currItem.blurb}</div>
+        </StyledFeatureBlurb>
+    }
+}
 
 const featureItems = {
     nsop2018 : {
         name: "Columbia Orientation Guide 2018",
         background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/FGCK2XX7JJBR7IOXRJMUOIUCC4.jpg",
-        blurb: "The orientation guide is a hub for resources for the incoming class of 2022 at \
-        Columbia. This project was developed in React and hosted on Washington Post's Arc Publishing \
-        suite. You can check out the website <a href='https://nsop2018.com' target='_blank'>here</a>."
+        blurb: <p>The orientation guide is a hub for resources for the incoming class of 2022 at
+            Columbia.This project was developed in React and hosted on Washington Post's Arc Publishing
+            suite. You can check out the website <a href='https://nsop2018.com' target='_blank'>here</a>.
+        </p>
     },
 
     vicePodcast : {
         name: "VICE Podcast Revamp Project",
         background: "/mobile-player.gif",
-        blurb: ""
+        blurb: <p>During my internship in summer of 2018 at VICE Media, I created a new podcast player
+            for VICE Media. The real challenge with this project was not with the engineering, but rather
+            finding the problem itself. At the beginning of our internship, me and a product design intern
+            were given the prompt which was simply "help users discover and listen to VICE podcasts". It was
+            up to us to frame the problem space through user research, competitive analysis, and internal analytics.
+            The engineering work for this project was done with TypeScript React and Redux. You can find my final
+            presentation <a href='https://www.slideshare.net/slideshow/embed_code/key/2ayUdQR0mfhM10' target='_blank'>here</a>. 
+        </p>
     },
 
     yearInReview : {
         name: "Columbia Daily Spectator Year In Review 2017-18",
         background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/HRAV4DQDKNEENLGOTRCXGWZ6MY.JPG",
-        blurb: ""
+        blurb: <p>Creating Year In Review was the greatest test in my leadership skills at the Columbia Spectator.
+            We were given the project with an incredibly tight deadline of 3 days. As the lead developer on the project,
+            I had to not only code much of the project, but also manage a team of 5 other student engineers who had
+            varying degrees of technical knowledge. I learned valuable lessons about how to manage a project and I'm
+            extremely satisfied with the final result, which you can find <a href='https://www.columbiaspectator.com/yir/2018/home/' target='_blank'>here</a>. 
+        </p>
     }
 }
 
@@ -212,7 +253,6 @@ class PageContent extends Component {
         return(
             <div>
                 <Navbar/>
-                <Overlay/>
                 <ContentContainer>
                     <Content>
                         <Intro>
@@ -232,13 +272,16 @@ class PageContent extends Component {
                         <FeaturedTitle>
                         Featured Projects
                         </FeaturedTitle>
-                        <Feature item={featureItems.nsop2018} onClick={()=>{alert("hello")}}/>
-                        <VICEFeature item={featureItems.vicePodcast}/>
-                        <Feature item={featureItems.yearInReview}/>
-                        <FeatureBlurb>
-                            {this.state.currentFeaturedContent && 
-                                featureItems[this.state.currentFeaturedContent].blurb}
-                        </FeatureBlurb>
+                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"nsop2018"})}}>
+                            <Feature item={"nsop2018"}/>
+                        </FeatureWrapper>
+                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"vicePodcast"})}}>
+                            <VICEFeature item={"vicePodcast"}/>
+                        </FeatureWrapper>
+                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"yearInReview"})}}>
+                            <Feature item={"yearInReview"}/>
+                        </FeatureWrapper>
+                        <FeatureBlurb currItem={_.get(featureItems,this.state.currentFeaturedContent)}/>
                     </Content>
                 </ContentContainer>
             </div>
