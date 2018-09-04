@@ -5,7 +5,7 @@ import Overlay from './Overlay';
 const StyledNavbar = styled.div`
     height: 50px;
     width: 100vw;
-    background: linear-gradient(black, #333);
+    background: black;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -60,6 +60,9 @@ const StyledFeature = styled.div`
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const FeatureBackground = styled.div`
@@ -91,11 +94,6 @@ const VICEFeatureBackground = styled(FeatureBackground)`
 
 const FeatureName = styled.div`
     position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     font-size: 2rem;
     color: white;
@@ -171,22 +169,45 @@ const FeaturedTitle = styled.div`
     background: linear-gradient(black, #333);
 `
 
-const nsop2018 = {
-    name: "Columbia Orientation Guide 2018",
-    background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/FGCK2XX7JJBR7IOXRJMUOIUCC4.jpg"
-}
+const FeatureBlurb = styled.div`
+    grid-column: 1/13;
+    height: 20vw;
+    transition: height 1s;
+    font-size: 1rem;
+    color: white;
+    text-shadow: 2px 2px 5px #888888;
+    background: linear-gradient(black, #333);
+`
 
-const vicePodcast = {
-    name: "VICE Podcast Revamp Project",
-    background: "/mobile-player.gif"
-}
+const featureItems = {
+    nsop2018 : {
+        name: "Columbia Orientation Guide 2018",
+        background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/FGCK2XX7JJBR7IOXRJMUOIUCC4.jpg",
+        blurb: "The orientation guide is a hub for resources for the incoming class of 2022 at \
+        Columbia. This project was developed in React and hosted on Washington Post's Arc Publishing \
+        suite. You can check out the website <a href='https://nsop2018.com' target='_blank'>here</a>."
+    },
 
-const yearInReview = {
-    name: "Columbia Daily Spectator Year In Review 2017-18",
-    background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/HRAV4DQDKNEENLGOTRCXGWZ6MY.JPG"
+    vicePodcast : {
+        name: "VICE Podcast Revamp Project",
+        background: "/mobile-player.gif",
+        blurb: ""
+    },
+
+    yearInReview : {
+        name: "Columbia Daily Spectator Year In Review 2017-18",
+        background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/HRAV4DQDKNEENLGOTRCXGWZ6MY.JPG",
+        blurb: ""
+    }
 }
 
 class PageContent extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {currentFeaturedContent: ""}
+    }
+
     render(){
         return(
             <div>
@@ -205,15 +226,19 @@ class PageContent extends Component {
                                 Here's my <a href="" target="_blank">resume</a>, <a href="" target="_blank">LinkedIn profile</a>, and <a href="" target="_blank">Github</a>.
                                 <br/>
                                 <br/>
-                                Here's some of the stuff I've worked on.
+                                Here is some of the stuff I've worked on.
                             </div>
                         </IntroBlurb>
                         <FeaturedTitle>
                         Featured Projects
                         </FeaturedTitle>
-                        <Feature item={nsop2018}></Feature>
-                        <VICEFeature item={vicePodcast}></VICEFeature>
-                        <Feature item={yearInReview}></Feature>
+                        <Feature item={featureItems.nsop2018} onClick={()=>{alert("hello")}}/>
+                        <VICEFeature item={featureItems.vicePodcast}/>
+                        <Feature item={featureItems.yearInReview}/>
+                        <FeatureBlurb>
+                            {this.state.currentFeaturedContent && 
+                                featureItems[this.state.currentFeaturedContent].blurb}
+                        </FeatureBlurb>
                     </Content>
                 </ContentContainer>
             </div>
