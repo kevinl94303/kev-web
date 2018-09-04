@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Overlay from './Overlay';
 
 const StyledNavbar = styled.div`
     height: 50px;
@@ -190,6 +191,7 @@ class PageContent extends Component {
         return(
             <div>
                 <Navbar/>
+                <Overlay/>
                 <ContentContainer>
                     <Content>
                         <Intro>
