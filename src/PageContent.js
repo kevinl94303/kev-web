@@ -522,6 +522,22 @@ class PageContent extends Component {
             }
         }
 
+        const Chevron = styled.div`
+            &::before {
+                border-style: solid;
+                border-width: 1rem 1rem 0 0;
+                content: '';
+                display: block;
+                height: 2rem;
+                left: 0.6667rem;
+                position: relative;
+                top: 0;
+                transform: rotate(135deg);
+                vertical-align: top;
+                width: 2rem;
+            }
+        `
+
         return(
             <div>
                 <ContentContainer>
@@ -531,6 +547,7 @@ class PageContent extends Component {
                         </Intro>
                         <IntroBlurb>
                             {introBlurb()}
+                            <Chevron/>
                         </IntroBlurb>
                         <IntroTranslate>
                             <div onClick={toggleLanguage}>{translateButton()}</div>
