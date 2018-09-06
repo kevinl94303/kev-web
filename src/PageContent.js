@@ -500,10 +500,14 @@ class PageContent extends Component {
             display: flex;
             align-items: center;
             & div{
-                width: 100%;
+                width: auto;
                 cursor: pointer;
                 user-select: none;
                 margin-left: 10px;
+                height: 30px;
+                &:hover{
+                    text-shadow: 2px 2px 5px #888888;
+                }
             }
         `
 
