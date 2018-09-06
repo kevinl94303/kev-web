@@ -503,10 +503,10 @@ class PageContent extends Component {
                     나는 코롬비아대학교에서 콤뷰터공학을 전문하는 학부생이에요. 내가 웹상품및 인공지능이 열정하다.
                     <br/>
                     <br/>
-                    나의<a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">이력서</a>하고, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn 페이지</a>하고, <a href="https://github.com/kevinl94303" target="_blank">Github</a>이여기예요.
+                    나의<a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">이력서</a>하고, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn 페이지</a>하고, <a href="https://github.com/kevinl94303" target="_blank">Github</a>이예요.
                     <br/>
                     <br/>
-                    의하는 내가완료했어 프로젝트예요.
+                    이하는 내가완료했어 프로젝트예요.
                 </div>
         }}
 
