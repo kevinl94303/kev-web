@@ -461,6 +461,10 @@ class PageContent extends Component {
                 return 'About me'
             case 'cn':
                 return '自我介紹'
+            case 'jp':
+                return '自己紹介'
+            case 'kr':
+                return '자기소개'
         }}
 
         const introBlurb = () => {switch(this.state.currentLanguage){
@@ -484,12 +488,36 @@ class PageContent extends Component {
                     <br/>
                     以下有我以前做過的項目。
                 </div>
+            case 'jp':
+                return <div>
+                    私はコロンビア大学に情報科学を専攻して、ウェブプロダクトとAIが熱情する学部生です。
+                    <br/>
+                    <br/>
+                    私の<a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">レジメ</a>、<a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn ページ</a>、そして<a href="https://github.com/kevinl94303" target="_blank">Github</a>はここです。
+                    <br/>
+                    <br/>
+                    以下は私ができたプロジェクト。
+                </div>
+            case 'kr':
+                return <div>
+                    나는 코롬비아대학교에서 콤뷰터공학을 전문하는 학부생이에요. 내가 웹상품및 인공지능이 열정하다.
+                    <br/>
+                    <br/>
+                    나의<a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">이력서</a>하고, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn 페이지</a>하고, <a href="https://github.com/kevinl94303" target="_blank">Github</a>이여기예요.
+                    <br/>
+                    <br/>
+                    의하는 내가완료했어 프로젝트예요.
+                </div>
         }}
 
         const translateButton = () => {switch(this.state.currentLanguage){
             case 'en':
                 return '中文版'
             case 'cn':
+                return '日本語版'
+            case 'jp':
+                return '한국어반'
+            case 'kr':
                 return 'English version'
         }}
 
@@ -508,6 +536,7 @@ class PageContent extends Component {
                 &:hover{
                     text-shadow: 2px 2px 5px #888888;
                 }
+                color: #888;
             }
         `
 
@@ -517,6 +546,12 @@ class PageContent extends Component {
                     this.setState({currentLanguage:'cn'})
                     break
                 case 'cn':
+                    this.setState({currentLanguage:'jp'})
+                    break
+                case 'jp':
+                    this.setState({currentLanguage:'kr'})
+                    break
+                case 'kr':
                     this.setState({currentLanguage:'en'})
                     break
             }
