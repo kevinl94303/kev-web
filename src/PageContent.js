@@ -465,7 +465,7 @@ class PageContent extends Component {
                                 I'm a computer science student at Columbia University with a passion for web products and AI/Machine Learning.
                                 <br/>
                                 <br/>
-                                Here's my <a href="" target="_blank">resume</a>, <a href="" target="_blank">LinkedIn profile</a>, and <a href="" target="_blank">Github</a>.
+                                Here's my <a href="./Resume.pdf" target="_blank">resume</a>, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn profile</a>, and <a href="https://github.com/kevinl94303" target="_blank">Github</a>.
                                 <br/>
                                 <br/>
                                 Here's some of the stuff I've worked on.
