@@ -233,7 +233,7 @@ const featureItems = {
 
     vicePodcast : {
         name: "VICE Podcast Revamp Project",
-        background: "/images/mobile-player.gif",
+        background: "./images/mobile-player.gif",
         blurb: <p>During my internship in summer of 2018 at VICE Media, I created a new podcast player and backend
             for VICE Media. The real challenge with this project was not just the engineering. The prompt for the 
             project was simply to "help users discover and listen to VICE podcasts". It was up to me and a product 
@@ -258,7 +258,7 @@ const featureItems = {
 const section2018Items = [
     {
         name: "Minima",
-        background: "/images/minima.png",
+        background: "./images/minima.png",
         blurb: <p>Minima is a corporate budgeting tool that I created with another developer and a product designer
             during a hackathon. I created the front-end using React, Express and D3. The backend is created using MongoDB.
             The codebase for it is <a href='https://github.com/ArsalaanAnsariDeveloper/Minima' target='_blank'>here</a> and
@@ -267,7 +267,7 @@ const section2018Items = [
     },
     {
         name: "Commencement Issue 2018",
-        background: "/images/commencement.gif",
+        background: "./images/commencement.gif",
         blurb: <p>The Columbia Spectator Commencement Issue features articles about commencement events, and columns and
             profiles of graduating seniors from Spectator and around Columbia. It was developed with JSP and ScrollMagic.
             You can check it out <a href='https://www.columbiaspectator.com/commencement-2018/' target='_blank'>here</a>
@@ -291,7 +291,7 @@ const section2018Items = [
     },
     {
         name: "New Web Layout for The Eye Magazine",
-        background: "/images/eye.gif",
+        background: "./images/eye.gif",
         blurb: <p>In my first semester as a lead dev at Spectator, I realized that our web layouts at Spectator were not 
             reflective of the quality of our journalism. I worked with a journalist to design and develop a web layout for her story that was then 
             templatized as a layout. Check it out <a href="https://www.columbiaspectator.com/eye/indirect-displacement-manhattanville/" target="_blank">here</a>.
@@ -299,7 +299,7 @@ const section2018Items = [
     },
     {
         name: "Replicated Gmail Layout",
-        background: "/images/gmail.png",
+        background: "./images/gmail.png",
         blurb: <p>For my UI Design class at Columbia, I had to replicate the GMail layout as best I could. Check out my
              submission <a href="http://www.columbia.edu/~krl2134/uidesign/gmail-interface/" target="_blank">here</a>.
         </p>
