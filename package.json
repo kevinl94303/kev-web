@@ -2,7 +2,7 @@
   "name": "kev-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kevinl94303.github.io/",
+  "homepage": "https://kevinl94303.github.io/kev-web/",
   "dependencies": {
     "gh-pages": "^1.2.0",
     "lodash": "^4.17.10",
