@@ -36,6 +36,7 @@ class Overlay extends Component {
         font-size: 4rem;
         display: flex;
         justify-content: center;
+        text-align: center;
         padding-top: 40vh;
         animation: ${fadeOutFrames} 2s linear forwards;
         animation-delay: 8s;

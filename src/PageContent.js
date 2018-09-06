@@ -2,61 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import * as _ from 'lodash';
 
-const StyledNavbar = styled.div`
-    height: 50px;
-    width: 100vw;
-    background: black;
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-`
-const NavbarItem = styled.div`
-    text-align: center;
-    position: relative;
-
-    &:hover{
-        text-decoration: none;
-        color: white;
-    }
-    &:before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -3px;
-        left: 0;
-        background-color: white;
-        visibility: hidden;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: all .1s cubic-bezier(1,.25,0,.75) 0s;;
-    }
-    &:hover:before {
-        visibility: visible;
-        transform: scaleX(1);
-    }
-`
-
-class Navbar extends Component{
-    render() {
-        return(
-            <StyledNavbar>
-                <NavbarItem>Top</NavbarItem>
-                <NavbarItem>Featured</NavbarItem>
-                <NavbarItem>2018</NavbarItem>
-                <NavbarItem>2017</NavbarItem>
-            </StyledNavbar>
-        )
-    }
-}
-
 const FeatureWrapper = styled.div`
-    grid-column: span 4;
-    height: 30vw;
+    grid-column: span 12;
+    height: 100vw;
+    @media only screen and (min-width: 480px){
+        height: 50vw;
+    }
+    @media only screen and (min-width: 768px){
+        grid-column: span 4;
+        height: 30vw;
+    }
     overflow: hidden;
     position: relative;
 `
@@ -108,24 +63,44 @@ const FeatureName = styled.div`
 `
 
 class Feature extends Component{
+    constructor(props){
+        super(props)
+        this.state = {showBlurb: false}
+    }
+
+    toggleBlurb = ()=>{
+        this.setState({showBlurb: !this.state.showBlurb})
+    }
+
     render() {
         const {props: {item}} = this;
         return(
-            <StyledFeature>
+            <StyledFeature onClick={this.toggleBlurb}>
                 <FeatureBackground item={featureItems[item]}/>
                 <FeatureName>{featureItems[item].name}</FeatureName>
+                <FeatureMobileBlurb showBlurb={this.state.showBlurb}>{featureItems[item].blurb}</FeatureMobileBlurb>
             </StyledFeature>
         )
     }
 }
 
 class VICEFeature extends Component{
+    constructor(props){
+        super(props)
+        this.state = {showBlurb: false}
+    }
+
+    toggleBlurb = ()=>{
+        this.setState({showBlurb: !this.state.showBlurb})
+    }
+
     render() {
         const {props: {item}} = this;
         return(
-            <StyledFeature>
+            <StyledFeature onClick={this.toggleBlurb}>
                 <VICEFeatureBackground item={featureItems[item]}/>
                 <FeatureName>{featureItems[item].name}</FeatureName>
+                <FeatureMobileBlurb showBlurb={this.state.showBlurb}>{featureItems[item].blurb}</FeatureMobileBlurb>
             </StyledFeature>
         )
     }
@@ -141,21 +116,38 @@ const Content = styled.div`
 `
 
 const Intro = styled.div`
-    grid-column: 2/5;
-    height: 100vh;
+    grid-column: span 12;
+    height: calc(30vh - 50px);
+    padding-top: 50px;
+    @media only screen and (min-width: 768px){
+        padding-top: 0;
+        grid-column: 2/5;
+        height: 100vh;
+    }
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 4rem;
     text-shadow: 2px 2px 5px #888888;
+    background: white;
 `
 
 const IntroBlurb = styled.div`
-    grid-column: 6/13;
+    grid-column: span 12;
+    height: calc(70vh + 50px);
+    margin-top: -50px;
+    padding: 0 5% 0 5%;
+    font-size: 1.75rem;
+    @media only screen and (min-width: 768px){
+        margin-top: 0;
+        padding: 0;
+        grid-column: 6/13;
+        height: 100vh;
+        font-size: 2rem;
+    }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
     color: #888;
     & a{
         color: inherit;
@@ -163,15 +155,23 @@ const IntroBlurb = styled.div`
     & a:hover{
         text-shadow: 2px 2px 5px #888888;
     }
+    background: white;
 `
 
 const FeaturedTitle = styled.div`
     grid-column: 1/13;
-    height: 20vw;
+    height: 80vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
+    font-size: 2rem;
+    @media only screen and (min-width: 480px){
+        height: 40vw;
+    }
+    @media only screen and (min-width: 768px){
+        font-size: 4rem;
+        height: 20vw;
+    }
     color: white;
     text-shadow: 2px 2px 5px #888888;
     background: linear-gradient(black, #333);
@@ -179,12 +179,16 @@ const FeaturedTitle = styled.div`
 
 const StyledFeatureBlurb = styled.div`
     grid-column: 1/13;
+    position: relative;
     height: 0;
     height: ${props => props.isContent ? '20vw' : 0};
     transition: height 1s;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    @media only screen and (max-width: 768px){
+        display: none;
+    }
     color: white;
-    background: linear-gradient(black, #333);
+    background: black;
     & a{
         color: inherit;
     }
@@ -193,16 +197,26 @@ const StyledFeatureBlurb = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    & div{
+    & .blurbText{
         margin: 5%;
     }
+`
+
+const CloseButton = styled.div`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
 `
 
 class FeatureBlurb extends Component {
     render(){
         let isContent = this.props.currItem && this.props.currItem.blurb ? true : false;
         return <StyledFeatureBlurb isContent = {isContent}>
-            <div>{this.props.currItem && this.props.currItem.blurb}</div>
+            <CloseButton onClick = {()=>{this.props.setFeaturedContent("")}}>&times;</CloseButton>
+            <div className="blurbText">{this.props.currItem && this.props.currItem.blurb}</div>
         </StyledFeatureBlurb>
     }
 }
@@ -212,7 +226,7 @@ const featureItems = {
         name: "Columbia Orientation Guide 2018",
         background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/FGCK2XX7JJBR7IOXRJMUOIUCC4.jpg",
         blurb: <p>The orientation guide is a hub for resources for the incoming class of 2022 at
-            Columbia.This project was developed in React and hosted on Washington Post's Arc Publishing
+            Columbia. This project was developed in React and hosted on Washington Post's Arc Publishing
             suite. You can check out the website <a href='https://nsop2018.com' target='_blank'>here</a>.
         </p>
     },
@@ -220,11 +234,10 @@ const featureItems = {
     vicePodcast : {
         name: "VICE Podcast Revamp Project",
         background: "/mobile-player.gif",
-        blurb: <p>During my internship in summer of 2018 at VICE Media, I created a new podcast player
-            for VICE Media. The real challenge with this project was not with the engineering, but rather
-            finding the problem itself. At the beginning of our internship, me and a product design intern
-            were given the prompt which was simply "help users discover and listen to VICE podcasts". It was
-            up to us to frame the problem space through user research, competitive analysis, and internal analytics.
+        blurb: <p>During my internship in summer of 2018 at VICE Media, I created a new podcast player and backend
+            for VICE Media. The real challenge with this project was not just the engineering. The prompt for the 
+            project was simply to "help users discover and listen to VICE podcasts". It was up to me and a product 
+            designer intern to frame the problem space through user research, competitive analysis, and internal analytics.
             The engineering work for this project was done with TypeScript React and Redux. You can find my final
             presentation <a href='https://www.slideshare.net/slideshow/embed_code/key/2ayUdQR0mfhM10' target='_blank'>here</a>. 
         </p>
@@ -242,17 +255,206 @@ const featureItems = {
     }
 }
 
+const section2018Items = [
+    {
+        name: "Minima",
+        background: "/minima.png",
+        blurb: <p>Minima is a corporate budgeting tool that I created with another developer and a product designer
+            during a hackathon. I created the front-end using React, Express and D3. The backend is created using MongoDB.
+            The codebase for it is <a href='https://github.com/ArsalaanAnsariDeveloper/Minima' target='_blank'>here</a> and
+            you can see it as a featured project <a href='https://medium.com/rehive-blog/rehive-hackathon-new-york-08-07-2018-634a8c5b218a#5ade' target='_blank'>here</a>.
+        </p>
+    },
+    {
+        name: "Commencement Issue 2018",
+        background: "/commencement.gif",
+        blurb: <p>The Columbia Spectator Commencement Issue features articles about commencement events, and columns and
+            profiles of graduating seniors from Spectator and around Columbia. It was developed with JSP and ScrollMagic.
+            You can check it out <a href='https://www.columbiaspectator.com/commencement-2018/' target='_blank'>here</a>
+        </p>
+    },
+    {
+        name: "The Eye 1968 Commemorative Issue",
+        background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/JXKXXVAFJ5ETBCB3H7AFBX5GGU.jpg",
+        blurb: <p>In 2018, The Eye launched a 50 year commemorative issue covering the history and modern day impacts
+            of the 1968 Columbia protests. I worked with journalists from the Eye and product designers to create this
+            interactive layout showing off their content. Check it out <a href="https://www.columbiaspectator.com/eye/1968-issue/" target="_blank">here</a>.
+        </p>
+    },
+    {
+        name: "Spectator Graphics Team Visualizing 1968",
+        background: "https://arc-anglerfish-arc2-prod-spectator.s3.amazonaws.com/public/SFFNXMIJMNDLLNYWMFX3ZEEBR4.png",
+        blurb: <p>I worked with graphic designers and data journalists from Spectator's graphics team to both design the
+            layout for and create a page showcasing their work analyzing and visualizing the quantitative information
+            from the 1968 Columbia protests. Check it out <a href="https://www.columbiaspectator.com/multimedia/visualizing-1968/" target="_blank">here</a>.
+        </p>
+    },
+    {
+        name: "New Web Layout for The Eye Magazine",
+        background: "/eye.gif",
+        blurb: <p>In my first semester as a lead dev at Spectator, I realized that our web layouts at Spectator were not 
+            reflective of the quality of our journalism. I worked with a journalist to design and develop a web layout for her story that was then 
+            templatized as a layout. Check it out <a href="https://www.columbiaspectator.com/eye/indirect-displacement-manhattanville/" target="_blank">here</a>.
+        </p>
+    },
+    {
+        name: "Replicated Gmail Layout",
+        background: "/gmail.png",
+        blurb: <p>For my UI Design class at Columbia, I had to replicate the GMail layout as best I could. Check out my
+             submission <a href="http://www.columbia.edu/~krl2134/uidesign/gmail-interface/" target="_blank">here</a>.
+        </p>
+    },
+]
+
+const section2017Items = [
+    {
+        name: "HTTP Client and Server",
+        background: "http://www.httpdebugger.com/images/article/http_protocol/http-session.jpg",
+        blurb: <p>For my Advanced Programming Class at Columbia, I created 
+            an HTTP <a href="https://github.com/kevinl94303/advanced-programming-labs/blob/master/lab6/part2/http-client.c" target="_blank">client</a> and <a href="https://github.com/kevinl94303/advanced-programming-labs/blob/master/lab7/part2/http-server.c" target="_blank">server</a> in C.
+        </p>
+    },
+    {
+        name: "Automatic Categorization of Data",
+        background: "https://raw.githubusercontent.com/kevinl94303/Python/master/krl2134_hw5/graphs/petal_width_vs_petal_length.png",
+        blurb: <p> For my Python class in Freshman Year, I wrote an algorithm to automatically categorize data into 
+            three categories based on a combination of three variables. The code for it can be
+            found <a href="https://github.com/kevinl94303/advanced-programming-labs/blob/master/lab6/part2/http-client.c" target="_blank">here</a> and
+            you can run it by cloning the repository and running "python main.py".
+        </p>
+    },
+]
+
+const SectionHeader = styled.div`
+    grid-column: span 12;
+    height: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    @media only screen and (min-width: 480px){
+        height: 40vw;
+    }
+    @media only screen and (min-width: 768px){
+        font-size: 4rem;
+        height: 20vw;
+    }
+    text-shadow: 2px 2px 5px #888888;
+`
+
+const SectionItemWrapper = styled.div`
+    grid-column: span 12;
+    height: 100vw;
+    @media only screen and (min-width: 480px){
+        grid-column: span 6;
+        height: 50vw;
+    }
+    @media only screen and (min-width: 768px){
+        height: 25vw;
+    }
+    @media only screen and (min-width: 1200px){
+        grid-column: span 3;
+        height: 25vw;
+    }
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+`
+
+const StyledSectionItem = styled.div`
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const SectionBlurb = styled.div`
+    opacity: 0;
+    opacity: ${props => props.showBlurb ? 1 : 0}
+    z-index: ${props => props.showBlurb ? 1 : -1}
+    transition: opacity 0.4s;
+    width: 80%;
+    height: 80%;
+    padding: 10%;
+    position: absolute;
+    background: black;
+    color: white;
+    font-size: 1.25rem;
+    @media only screen and (max-width: 992px){
+        font-size: 1rem;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    & a{
+        color: inherit;
+    }
+`
+
+const FeatureMobileBlurb = styled(SectionBlurb)`
+    display: none;
+    @media only screen and (max-width: 768px){
+        display: flex;
+    }
+`
+
+class SectionItem extends Component {
+    constructor(props){
+        super(props)
+        this.state = {showBlurb: false}
+    }
+
+    toggleBlurb = ()=>{
+        this.setState({showBlurb: !this.state.showBlurb})
+    }
+
+    render(){
+        const {props: {item}} = this;
+        return <StyledSectionItem showBlurb = {this.state.showBlurb} onClick={this.toggleBlurb}>
+            <FeatureBackground item={item}/>
+            <FeatureName>{item.name}</FeatureName>
+            <SectionBlurb showBlurb={this.state.showBlurb}>{item.blurb}</SectionBlurb>
+        </StyledSectionItem>
+    }
+}
+
 class PageContent extends Component {
 
     constructor(props){
         super(props)
         this.state = {currentFeaturedContent: ""}
+        this.featuredRef = React.createRef()
+        this.section2018Ref = React.createRef()
+        this.section2017Ref = React.createRef()
+    }
+
+    setFeaturedContent = (newState)=>{
+        if(newState === this.state.currentFeaturedContent)
+            this.setState({currentFeaturedContent:""})
+        else
+            this.setState({currentFeaturedContent:newState})
     }
 
     render(){
+        const Section2018 = section2018Items.map(
+            (item) => <SectionItemWrapper>
+                <SectionItem item={item}/>
+            </SectionItemWrapper>
+        )
+
+        const Section2017 = section2017Items.map(
+            (item) => <SectionItemWrapper>
+                <SectionItem item={item}/>
+            </SectionItemWrapper>
+        )
+
         return(
             <div>
-                <Navbar/>
                 <ContentContainer>
                     <Content>
                         <Intro>
@@ -266,22 +468,30 @@ class PageContent extends Component {
                                 Here's my <a href="" target="_blank">resume</a>, <a href="" target="_blank">LinkedIn profile</a>, and <a href="" target="_blank">Github</a>.
                                 <br/>
                                 <br/>
-                                Here is some of the stuff I've worked on.
+                                Here's some of the stuff I've worked on.
                             </div>
                         </IntroBlurb>
-                        <FeaturedTitle>
+                        <FeaturedTitle innerRef={this.featuredRef}>
                         Featured Projects
                         </FeaturedTitle>
-                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"nsop2018"})}}>
+                        <FeatureWrapper onClick={()=>{this.setFeaturedContent("nsop2018")}}>
                             <Feature item={"nsop2018"}/>
                         </FeatureWrapper>
-                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"vicePodcast"})}}>
+                        <FeatureWrapper onClick={()=>{this.setFeaturedContent("vicePodcast")}}>
                             <VICEFeature item={"vicePodcast"}/>
                         </FeatureWrapper>
-                        <FeatureWrapper onClick={()=>{this.setState({currentFeaturedContent:"yearInReview"})}}>
+                        <FeatureWrapper onClick={()=>{this.setFeaturedContent("yearInReview")}}>
                             <Feature item={"yearInReview"}/>
                         </FeatureWrapper>
-                        <FeatureBlurb currItem={_.get(featureItems,this.state.currentFeaturedContent)}/>
+                        <FeatureBlurb setFeaturedContent={this.setFeaturedContent} currItem={_.get(featureItems,this.state.currentFeaturedContent)}/>
+                        <SectionHeader innerRef={this.section2018Ref}>
+                            2018
+                        </SectionHeader>
+                        {Section2018}
+                        <SectionHeader innerRef={this.section2017Ref}>
+                            2017
+                        </SectionHeader>
+                        {Section2017}
                     </Content>
                 </ContentContainer>
             </div>
