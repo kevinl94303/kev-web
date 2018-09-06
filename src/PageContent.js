@@ -495,7 +495,7 @@ class PageContent extends Component {
         }}
 
         const IntroTranslate = styled.div`
-            grid-column: span 12;
+            grid-column: span 6;
             height: 50px;
             margin-top: -50px;
             display: flex;
@@ -504,10 +504,32 @@ class PageContent extends Component {
                 width: auto;
                 cursor: pointer;
                 user-select: none;
-                margin-left: 10px;
+                margin-left: 20px;
                 height: 30px;
                 &:hover{
                     text-shadow: 2px 2px 5px #888888;
+                }
+            }
+        `
+
+        const RepoLink = styled.div`
+            grid-column: span 6;
+            height: 50px;
+            margin-top: -50px;
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            & div{
+                width: auto;
+                cursor: pointer;
+                user-select: none;
+                margin-right: 20px;
+                height: 30px;
+                &:hover{
+                    text-shadow: 2px 2px 5px #888888;
+                }
+                & a{
+                    color: inherit;
                 }
             }
         `
@@ -567,6 +589,11 @@ class PageContent extends Component {
                         <IntroTranslate>
                             <div onClick={toggleLanguage}>{translateButton()}</div>
                         </IntroTranslate>
+                        <RepoLink>
+                            <div>
+                                <a href="https://github.com/kevinl94303/kev-web" target="_blank">Check out the codebase for this website</a>
+                            </div>
+                        </RepoLink>
                         <FeaturedTitle innerRef={this.featuredRef}>
                         Featured Projects
                         </FeaturedTitle>
