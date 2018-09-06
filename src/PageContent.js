@@ -117,8 +117,11 @@ const Content = styled.div`
 
 const Intro = styled.div`
     grid-column: span 12;
-    height: calc(30vh - 50px);
+    height: calc(40vh - 50px);
     padding-top: 50px;
+    @media only screen and (min-width: 400px){
+        height: calc(30vh - 50px);
+    }
     @media only screen and (min-width: 768px){
         padding-top: 0;
         grid-column: 2/5;
@@ -134,10 +137,14 @@ const Intro = styled.div`
 
 const IntroBlurb = styled.div`
     grid-column: span 12;
-    height: calc(70vh + 50px);
+    height: calc(60vh + 50px);
     margin-top: -50px;
     padding: 0 5% 0 5%;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
+    @media only screen and (min-width: 400px){
+        font-size: 1.75rem;
+        height: calc(70vh + 50px);
+    }
     @media only screen and (min-width: 768px){
         margin-top: 0;
         padding: 0 50px;
@@ -525,6 +532,7 @@ class PageContent extends Component {
                 user-select: none;
                 margin-right: 20px;
                 height: 30px;
+                text-align: right;
                 &:hover{
                     text-shadow: 2px 2px 5px #888888;
                 }
@@ -591,7 +599,7 @@ class PageContent extends Component {
                         </IntroTranslate>
                         <RepoLink>
                             <div>
-                                <a href="https://github.com/kevinl94303/kev-web" target="_blank">Check out the codebase for this website</a>
+                                <a href="https://github.com/kevinl94303/kev-web" target="_blank">Check this site out on Github</a>
                             </div>
                         </RepoLink>
                         <FeaturedTitle innerRef={this.featuredRef}>
