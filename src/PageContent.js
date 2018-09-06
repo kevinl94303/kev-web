@@ -140,12 +140,13 @@ const IntroBlurb = styled.div`
     font-size: 1.75rem;
     @media only screen and (min-width: 768px){
         margin-top: 0;
-        padding: 0;
+        padding: 0 50px;
         grid-column: 6/13;
         height: 100vh;
         font-size: 2rem;
     }
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #888;
@@ -523,18 +524,29 @@ class PageContent extends Component {
         }
 
         const Chevron = styled.div`
+            width: 2rem;
+            height: 2rem;
+            margin-top: 2rem;
+            display: block;
             &::before {
+                color: black;
+                opacity: 0.45;
                 border-style: solid;
-                border-width: 1rem 1rem 0 0;
+                border-width: 0.5rem 0.5rem 0 0;
                 content: '';
                 display: block;
-                height: 2rem;
-                left: 0.6667rem;
+                height: 1.5rem;
+                left: 0;
                 position: relative;
                 top: 0;
                 transform: rotate(135deg);
                 vertical-align: top;
-                width: 2rem;
+                width: 1.5rem;
+                cursor: pointer;
+                transition: opacity 0.4s;
+            }
+            &:hover::before {
+                opacity: 1;
             }
         `
 
@@ -547,7 +559,10 @@ class PageContent extends Component {
                         </Intro>
                         <IntroBlurb>
                             {introBlurb()}
-                            <Chevron/>
+                            <Chevron onClick = {()=>{window.scrollTo({
+                                top: this.featuredRef.current.offsetTop - 50,
+                                behavior: "smooth"
+                            })}}/>
                         </IntroBlurb>
                         <IntroTranslate>
                             <div onClick={toggleLanguage}>{translateButton()}</div>
