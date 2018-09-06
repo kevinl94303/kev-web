@@ -427,7 +427,10 @@ class PageContent extends Component {
 
     constructor(props){
         super(props)
-        this.state = {currentFeaturedContent: ""}
+        this.state = {
+            currentFeaturedContent: "",
+            currentLanguage: "en"
+        }
         this.featuredRef = React.createRef()
         this.section2018Ref = React.createRef()
         this.section2017Ref = React.createRef()
@@ -453,24 +456,81 @@ class PageContent extends Component {
             </SectionItemWrapper>
         )
 
+        const intro = () => {switch(this.state.currentLanguage){
+            case 'en':
+                return 'About me'
+            case 'cn':
+                return '自我介紹'
+        }}
+
+        const introBlurb = () => {switch(this.state.currentLanguage){
+            case 'en':
+                return <div>
+                    I'm a computer science student at Columbia University with a passion for web products and AI/Machine Learning.
+                    <br/>
+                    <br/>
+                    Here's my <a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">resume</a>, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn profile</a>, and <a href="https://github.com/kevinl94303" target="_blank">Github</a>.
+                    <br/>
+                    <br/>
+                    Here's some of the stuff I've worked on.
+                </div>
+            case 'cn':
+                return <div>
+                    我是一個哥大計算機專業的本科生，熱愛科技產品与人工智能。
+                    <br/>
+                    <br/>
+                    這是我的<a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">簡歷</a>，<a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn 網頁</a>，與<a href="https://github.com/kevinl94303" target="_blank">Github</a>。
+                    <br/>
+                    <br/>
+                    以下有我以前做過的項目。
+                </div>
+        }}
+
+        const translateButton = () => {switch(this.state.currentLanguage){
+            case 'en':
+                return '中文版'
+            case 'cn':
+                return 'English version'
+        }}
+
+        const IntroTranslate = styled.div`
+            grid-column: span 12;
+            height: 50px;
+            margin-top: -50px;
+            display: flex;
+            align-items: center;
+            & div{
+                width: 100%;
+                cursor: pointer;
+                user-select: none;
+                margin-left: 10px;
+            }
+        `
+
+        const toggleLanguage = () => {
+            switch(this.state.currentLanguage){
+                case 'en':
+                    this.setState({currentLanguage:'cn'})
+                    break
+                case 'cn':
+                    this.setState({currentLanguage:'en'})
+                    break
+            }
+        }
+
         return(
             <div>
                 <ContentContainer>
                     <Content>
                         <Intro>
-                        About me
+                            {intro()}
                         </Intro>
                         <IntroBlurb>
-                            <div>
-                                I'm a computer science student at Columbia University with a passion for web products and AI/Machine Learning.
-                                <br/>
-                                <br/>
-                                Here's my <a href="https://github.com/kevinl94303/kev-web/blob/master/Resume.pdf" target="_blank">resume</a>, <a href="https://www.linkedin.com/in/kevirl8/" target="_blank">LinkedIn profile</a>, and <a href="https://github.com/kevinl94303" target="_blank">Github</a>.
-                                <br/>
-                                <br/>
-                                Here's some of the stuff I've worked on.
-                            </div>
+                            {introBlurb()}
                         </IntroBlurb>
+                        <IntroTranslate>
+                            <div onClick={toggleLanguage}>{translateButton()}</div>
+                        </IntroTranslate>
                         <FeaturedTitle innerRef={this.featuredRef}>
                         Featured Projects
                         </FeaturedTitle>
