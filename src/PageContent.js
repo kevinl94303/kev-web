@@ -33,6 +33,7 @@ const FeatureBackground = styled.div`
     background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.9)),url("${props => props.item.background}");
     background-size: cover;
     background-blend-mode: multiply;
+    background-position: center;
     &:hover{
         filter: blur(5px);
         transform: scale(1.07);
@@ -303,6 +304,22 @@ const section2018Items = [
         blurb: <p>In my first semester as a lead dev at Spectator, I realized that our web layouts at Spectator were not 
             reflective of the quality of our journalism. I worked with a journalist to design and develop a web layout for her story that was then 
             templatized as a layout. Check it out <a href="https://www.columbiaspectator.com/eye/indirect-displacement-manhattanville/" target="_blank">here</a>.
+        </p>
+    },
+    {
+        name: "Dunder Mifflin Infinity",
+        background: "https://vignette.wikia.nocookie.net/theoffice/images/5/53/Dmilogo.jpg/revision/latest?cb=20091221095019",
+        blurb: <p>For my UI Design class at Columbia, I had to create a mock version of the Dunder Mifflin Infinity website
+            from The Office using JQuery. Check it out <a href="http://www.columbia.edu/~krl2134/uidesign/dm-infinity/" target="_blank">here</a>.
+        </p>
+    },
+    {
+        name: "Cooking Tutorial Final Project",
+        background: "https://www.omahasteaks.com/gifs/990x594/pr_ts004.jpg",
+        blurb: <p>For my final project for my UI Design class at Columbia, I decided to help address food security on campus.
+            I then broke this problem domain into smaller, more addressible subproblems, of which I decided to tackle "cooking illiteracy". 
+            I created <a href="http://www.columbia.edu/~krl2134/uidesign/final/" target="_blank">this</a> website 
+            to help students prepare their first meal.
         </p>
     },
     {
